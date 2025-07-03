@@ -4,6 +4,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { MoviesItemComponent } from '../../shared/moviesItem/moviesItem.component';
 
 @Component({
   imports: [
@@ -11,7 +12,8 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     NzGridModule,
     NzFlexModule,
     FormsModule,
-    NzButtonModule
+    NzButtonModule,
+    MoviesItemComponent
   ],    
   selector: 'app-home',
   templateUrl: './home.component.html',
