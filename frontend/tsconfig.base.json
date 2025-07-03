@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@frontend/dashboard": ["libs/feature/admin/dashboard/src/index.ts"],
+      "@frontend/data-access": ["libs/data-access/src/index.ts"],
       "@frontend/details": ["libs/feature/movies/details/src/index.ts"],
       "@frontend/home": ["libs/feature/movies/home/src/index.ts"],
       "@frontend/models": ["libs/shared/models/src/index.ts"],
