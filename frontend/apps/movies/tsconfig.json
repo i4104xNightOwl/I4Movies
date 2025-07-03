@@ -3,6 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "noImplicitOverride": true,
+    "noImplicitAny": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

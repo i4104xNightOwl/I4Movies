@@ -18,10 +18,18 @@
         "assets": [
           {
             "glob": "**/*",
+            "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+            "output": "/assets/"
+          },
+          {
+            "glob": "**/*",
             "input": "apps/movies/public"
           }
         ],
-        "styles": ["apps/movies/src/styles.scss"]
+        "styles": [
+          "apps/movies/src/styles.scss",
+          "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+        ]
       },
       "configurations": {
         "production": {
