@@ -11,7 +11,7 @@
 					</span>
 				</div>
 			</div>
-	
+
 			<div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="9">
 				<div class="content" nz-flex nzAlign="center" nzJustify="center">
 					<button class="play-btn" nz-button nzType="primary" nzDanger nzShape="round">
@@ -22,54 +22,10 @@
 		</div>
 	</div>
 
-	<div class="movies-container">
-		<div class="newly-updated">
-			<div nz-row nzGutter="20">
-				<div nz-col [nzSm]="12" [nzMd]="8" [nzLg]="6">
-					<app-movies-item 
-						imgSrc="/nguoi-cat-phan-2-thumb.jpg"
-						name="Người Cát (Phần 2)"
-						originName="Người Cát (Phần 2)"
-						[episodeTotal]=12
-						[episodeCurrent]=1
-						quality="HD"
-						createdTime="2025-07-03T13:01:49.000Z"
-					/>
-				</div>
-				<div nz-col [nzSm]="12" [nzMd]="8" [nzLg]="6">
-					<app-movies-item 
-						imgSrc="/nguoi-cat-phan-2-thumb.jpg"
-						name="Người Cát (Phần 2)"
-						originName="Người Cát (Phần 2)"
-						[episodeTotal]=12
-						[episodeCurrent]=1
-						quality="HD"
-						createdTime="2025-07-03T13:01:49.000Z"
-					/>
-				</div>
-				<div nz-col [nzSm]="12" [nzMd]="8" [nzLg]="6">
-					<app-movies-item 
-						imgSrc="/nguoi-cat-phan-2-thumb.jpg"
-						name="Người Cát (Phần 2)"
-						originName="Người Cát (Phần 2)"
-						[episodeTotal]=12
-						[episodeCurrent]=1
-						quality="HD"
-						createdTime="2025-07-03T13:01:49.000Z"
-					/>
-				</div>
-				<div nz-col [nzSm]="12" [nzMd]="8" [nzLg]="6">
-					<app-movies-item 
-						imgSrc="/nguoi-cat-phan-2-thumb.jpg"
-						name="Người Cát (Phần 2)"
-						originName="Người Cát (Phần 2)"
-						[episodeTotal]=12
-						[episodeCurrent]=1
-						quality="HD"
-						createdTime="2025-07-03T13:01:49.000Z"
-					/>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="movies-container">
+        <div class="newly-updated">
+            <h2 class="title">Phim Moi</h2>
+            <app-carousel [movies]="movies"></app-carousel>
+        </div>
+    </div>
 </div>
