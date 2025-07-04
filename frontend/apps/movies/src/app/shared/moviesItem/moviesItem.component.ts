@@ -1,28 +1,22 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
-
+import { IMovies } from '@frontend/models';
 
 @Component({
-  imports: [
-    NzCardModule
-  ],
-  selector: 'app-movies-item',
-  templateUrl: './moviesItem.component.html',
-  styleUrls: ['./moviesItem.component.css']
+    imports: [
+        NzCardModule,
+    ],
+    selector: 'app-movies-item',
+    templateUrl: './moviesItem.component.html',
+    styleUrls: ['./moviesItem.component.css']
 })
 
 export class MoviesItemComponent implements OnInit {
-  @Input() imgSrc!: string;
-  @Input() originName!: string;
-  @Input() name!: string;
-  @Input() episodeTotal!: number;
-  @Input() episodeCurrent!: number;
-  @Input() quality!: string;
-  @Input() createdTime!: string;
+    @Input() movie!: IMovies;
 
-  year: number;
+    year: number;
 
-  ngOnInit() {
-    this.year = new Date(this.createdTime).getFullYear();
-  }
+    ngOnInit() {
+        this.year = new Date(this.movie.createdTime).getFullYear();
+    }
 }
