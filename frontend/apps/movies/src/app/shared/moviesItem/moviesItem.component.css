@@ -18,6 +18,10 @@
         height: 350px;
         position: relative;
 
+        @media screen and (max-width: 768px) {
+            height: 180px;
+        }
+
         img {
             border-radius: 15px;
             width: 100%;
@@ -41,11 +45,19 @@
         .origin-name {
             color: rgb(164, 163, 163);
             font-size: 12px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
         }
 
         .name {
             color: white;
             font-size: 18px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
         }
     }
 
