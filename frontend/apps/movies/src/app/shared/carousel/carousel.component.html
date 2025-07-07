@@ -1,9 +1,8 @@
 <div class="movies-slider">
-    <div nz-row nzGutter="20">
-        @for (item of movies; track item.name) {
-        <div nz-col [nzSm]="12" [nzMd]="8" [nzLg]="6">
-            <app-movies-item [movie]="item" />
-        </div>
-        }
-    </div>
+    <swiper-container pagination="false" pagination-clickable="true" space-between="20" slides-per-view="4"
+        [breakpoints]="breakpoints">
+        <swiper-slide *ngFor="let movie of movies">
+            <app-movies-item [movie]="movie"></app-movies-item>
+        </swiper-slide>
+    </swiper-container>
 </div>
