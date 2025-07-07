@@ -28,8 +28,16 @@
             }
     
             .play-btn {
-                height: 80px;
-                width: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px 15px;
+                height: 70px;
+
+                &:hover {
+                    transform: scale(1.05);
+                    transition: all 0.2s ease-in-out;
+                }
 
                 nz-icon {
                     font-size: 40px;
