@@ -4,35 +4,50 @@
     background-image: url('/nguoi-cat-phan-2-poster.jpg');
     background-size: cover;
     background-position: center;
-    
-    
+
     .movies-info {
         padding-left: 50px;
+
+        @media screen and (max-width: 768px) {
+            padding: 0 10px;
+        }
     }
-    
+
     .overlay {
         height: 100%;
         background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 50%, rgba(8, 7, 0, 1) 100%, rgba(8, 7, 0, 0.69) 100%);
-    
+
         .content {
             height: 100%;
 
             .title {
-                font-size: 40px;
+                font-size: 30px;
                 color: white;
+                font-weight: 700;
             }
-    
+
             .sub-title {
                 font-size: 20px;
-                color: white;
+                color: rgb(192, 192, 192);
+                max-width: 800px;
+
+                @media screen and (max-width: 768px) {
+                    max-width: 350px;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    overflow: hidden;
+                }
+
+                margin-bottom: 20px;
             }
-    
+
             .play-btn {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 5px 15px;
-                height: 70px;
+                padding: 5px 20px;
+                height: 60px;
 
                 &:hover {
                     transform: scale(1.05);
@@ -40,10 +55,9 @@
                 }
 
                 nz-icon {
-                    font-size: 40px;
+                    font-size: 30px;
                     font-weight: 400;
                 }
-                
             }
         }
     }
@@ -55,7 +69,34 @@
     top: -120px;
     padding: 20px;
 
-    .newly-updated {
+    .movies-section {
         max-width: 100%;
+        margin-bottom: 50px;
     }
+
+    .toolbar {
+        width: 100%;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .more {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+
+            &:hover {
+                color: #0062ff;
+            }
+        }
+    }
+
 }
