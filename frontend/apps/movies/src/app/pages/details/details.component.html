@@ -1,3 +1,60 @@
-<p>
-  details works!
-</p>
+<div class="details-wrapper">
+    <div class="info-section">
+        <div nz-row nzGutter="16">
+            <div class="thumb" nz-col [nzSm]="12" [nzMd]="12" [nzLg]="10" [nzXl]="6">
+                <img src="/nguoi-cat-phan-2-thumb.jpg" alt="">
+            </div>
+            <div class="info" nz-col [nzSm]="12" [nzMd]="12" [nzLg]="14" [nzXl]="18">
+                <div class="title">
+                    <h1>Người cát phần 2</h1>
+                    <hr class="divider">
+                    <span>
+                        Sau hơn một thế kỷ xa rời Dreaming, Dream đã khôi phục và xây dựng lại vương quốc của mình. Khi
+                        anh biến đổi
+                        cung điện,
+                        anh thề sẽ bỏ lại quá khứ phía sau và hướng tới tương lai. Tất nhiên, quá khứ có những ý tưởng
+                        khác.
+                    </span>
+                </div>
+
+
+                <table class="detail">
+                    <tbody>
+                        <tr>
+                            <td>Thể loại</td>
+                            <td>Hành động</td>
+                        </tr>
+                        <tr>
+                            <td>Quốc gia</td>
+                            <td>USA</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày tạo</td>
+                            <td>19/12/2024</td>
+                        </tr>
+                        <tr>
+                            <td>Số tập</td>
+                            <td>10/12</td>
+                        </tr>
+                        <tr>
+                            <td>Trạng thái</td>
+                            <td>Hoàn thành</td>
+                        </tr>
+                        <tr>
+                            <td>Lượt xem</td>
+                            <td>1.2M</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button nz-button nzDanger nzType="primary" nzSize="large" nzShape="round">
+                    <nz-icon nzType="play-circle" nzTheme="outline" />
+                    Xem phim
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="recommend">
+        <h1>Phim đề xuất</h1>
+        <app-carousel [movies]="movies"></app-carousel>
+    </div>
+</div>
