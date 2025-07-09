@@ -1,0 +1,84 @@
+.player-wrapper {
+    padding: 20px;
+}
+
+.title {
+    color: white;
+
+    h1 {
+        color: white;
+        font-weight: bold;
+        font-size: 25px;
+        margin: 0;
+        padding: 0;
+    }
+
+    span {
+        color: rgb(192, 192, 192);
+        font-size: 18px;
+        font-weight: 500;
+    }
+}
+
+.player {
+    width: 100%;
+
+    video {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.episode {
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px 0px rgba(25, 25, 25, 0.75);
+    padding: 10px;
+
+    @media screen and (max-width: 992px) {
+        margin-top: 20px;
+    }
+
+    .episode-title {
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .episode-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        a {
+            display: block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+            color: white;
+            font-size: 18px;
+            background: rgb(60, 60, 60);
+
+            &.active {
+                background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(131, 201, 160, 1) 100%);
+                color: white;
+            }
+
+            &:hover {
+                transform: scale(1.02);
+                transition: all 0.2s ease-in-out;
+            }
+        }
+    }
+}
+
+.recommended {
+    margin-top: 20px;
+
+    h1 {
+        color: white;
+        font-weight: bold;
+        font-size: 25px;
+        margin: 0;
+        padding: 0;
+    }
+}
