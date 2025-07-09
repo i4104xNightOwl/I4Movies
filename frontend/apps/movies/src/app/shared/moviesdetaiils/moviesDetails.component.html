@@ -1,0 +1,39 @@
+<nz-modal [(nzVisible)]="isVisible" [nzFooter]="null" [nzWidth]="800"
+    [nzBodyStyle]="{ padding: '0', backgroundColor: '#000', color: '#fff' }" [nzClosable]="false" nzCentered
+    class="movie-modal">
+    <ng-container *nzModalContent>
+        <div class="modal-content">
+            <div class="poster">
+                <img src="/nguoi-cat-phan-2-poster.jpg" alt="poster" />
+                <nz-icon class="close-btn" nzType="close" nzTheme="outline" (click)="handleCancel()"></nz-icon>
+            </div>
+
+            <div class="content">
+                <h2 class="title">TRÒ CHƠI CON MỰC</h2>
+                <h4 class="subtitle">SQUID GAME</h4>
+
+                <div class="tags">
+                    <span class="tag">2025</span>
+                    <span class="tag">T18</span>
+                    <span class="tag">Chương trình</span>
+                    <span class="tag">Giật gân</span>
+                    <span class="tag">Phim chính kịch</span>
+                </div>
+
+                <p class="description">
+                    Hàng trăm người chơi kẹt tiền chấp nhận một lời mời kỳ lạ: thi đấu trong các trò chơi trẻ con.
+                    Đón chờ họ là một giải thưởng hấp dẫn – và những rủi ro chết người.
+                </p>
+
+                <div class="footer">
+                    <button nz-button type="button" nzType="primary" nzDanger class="start-btn">
+                        Xem phim
+                    </button>
+                    <button nz-button type="button" nzType="default" class="close" (click)="handleCancel()">
+                        <span>Đóng</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</nz-modal>
