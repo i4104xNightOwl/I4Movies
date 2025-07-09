@@ -1,10 +1,11 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { IMovies } from '@frontend/models';
 import { MoviesItemComponent } from '../moviesItem/moviesItem.component';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { CommonModule } from '@angular/common';
+import { MoviesDetailsComponent } from '../moviesdetaiils/moviesDetails.component';
 
 @Component({
     imports: [
@@ -12,7 +13,8 @@ import { CommonModule } from '@angular/common';
         NzCardModule,
         NzGridModule,
         NzCarouselModule,
-        MoviesItemComponent
+        MoviesItemComponent,
+        MoviesDetailsComponent
     ],
     selector: 'app-carousel',
     templateUrl: './carousel.component.html',
@@ -24,6 +26,8 @@ export class CarouselComponent implements OnInit {
     @Input() movies: IMovies[] = [];
 
     moviesPage: IMovies[] = [];
+    selectedMovie: IMovies;
+    modalVisible = false;
 
     breakpoints = {
         375: {
