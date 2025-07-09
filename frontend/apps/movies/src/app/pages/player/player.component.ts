@@ -53,8 +53,9 @@ export class PlayerComponent implements OnInit {
                 type: 'application/x-mpegURL'
             }],
             controls: true,
+            preload: 'auto',
             responsive: true,
-            fluid: true
+            fluid: true,
         });
     }
 
