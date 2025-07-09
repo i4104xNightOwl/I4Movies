@@ -2,22 +2,37 @@
     padding: 20px;
 }
 
+.player-container {
+    margin-bottom: 50px;
+}
+
 .title {
-    text-transform: uppercase;
     color: white;
 
     h1 {
         color: white;
         font-weight: bold;
         font-size: 25px;
+        text-transform: uppercase;
         margin: 0;
         padding: 0;
     }
 
-    span {
-        color: rgb(192, 192, 192);
-        font-size: 18px;
-        font-weight: 500;
+    .tags {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+
+        .tag {
+            padding: 5px 15px;
+            border-radius: 5px;
+            color: rgb(192, 192, 192);
+            font-size: 12px;
+            font-weight: 500;
+            background-color: rgb(60, 60, 60);
+        }
+
     }
 }
 
@@ -39,6 +54,25 @@
         margin-top: 20px;
     }
 
+    .description {
+        margin-bottom: 50px;
+
+        h3 {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            border-bottom: 1px solid white;
+        }
+
+        p {
+            color: rgb(192, 192, 192);
+            font-size: 16px;
+            font-weight: 400;
+            max-height: 150px;
+            overflow: auto;
+        }
+    }
+
     .episode-title {
         color: white;
         font-size: 20px;
@@ -49,6 +83,8 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        max-height: 500px;
+        overflow: auto;
 
         a {
             display: block;

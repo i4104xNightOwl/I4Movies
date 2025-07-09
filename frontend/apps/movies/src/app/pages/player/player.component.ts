@@ -49,7 +49,7 @@ export class PlayerComponent implements OnInit {
     ngOnInit() {
         this.player = videojs(this.videoElement.nativeElement, {
             sources: [{
-                src: 'https://vip.opstream10.com/20250619/29634_ed924d52/index.m3u8',
+                src: 'https://vip.opstream15.com/20230329/36754_5a2f962a/index.m3u8',
                 type: 'application/x-mpegURL'
             }],
             controls: true,
