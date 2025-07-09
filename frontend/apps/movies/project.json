@@ -1,94 +1,99 @@
 {
-  "name": "movies",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "apps/movies/src",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/movies",
-        "browser": "apps/movies/src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "apps/movies/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-            "output": "/assets/"
-          },
-          {
-            "glob": "**/*",
-            "input": "apps/movies/public"
-          }
-        ],
-        "styles": [
-          "apps/movies/src/styles.scss",
-          "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
-        ]
-      },
-      "configurations": {
-        "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+    "name": "movies",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "app",
+    "sourceRoot": "apps/movies/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular/build:application",
+            "outputs": [
+                "{options.outputPath}"
+            ],
+            "options": {
+                "outputPath": "dist/apps/movies",
+                "browser": "apps/movies/src/main.ts",
+                "polyfills": [
+                    "zone.js"
+                ],
+                "tsConfig": "apps/movies/tsconfig.app.json",
+                "inlineStyleLanguage": "scss",
+                "assets": [
+                    {
+                        "glob": "**/*",
+                        "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                        "output": "/assets/"
+                    },
+                    {
+                        "glob": "**/*",
+                        "input": "apps/movies/public"
+                    }
+                ],
+                "styles": [
+                    "node_modules/video.js/dist/video-js.css",
+                    "apps/movies/src/styles.scss",
+                    "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+                ]
             },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "4kb",
-              "maximumError": "8kb"
+            "configurations": {
+                "production": {
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "1mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "4kb",
+                            "maximumError": "8kb"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "optimization": false,
+                    "extractLicenses": false,
+                    "sourceMap": true
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "continuous": true,
+            "executor": "@angular/build:dev-server",
+            "options": {
+                "port": 4200
+            },
+            "configurations": {
+                "production": {
+                    "buildTarget": "movies:build:production"
+                },
+                "development": {
+                    "buildTarget": "movies:build:development"
+                }
+            },
+            "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+            "executor": "@angular/build:extract-i18n",
+            "options": {
+                "buildTarget": "movies:build"
             }
-          ],
-          "outputHashing": "all"
         },
-        "development": {
-          "optimization": false,
-          "extractLicenses": false,
-          "sourceMap": true
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "continuous": true,
-      "executor": "@angular/build:dev-server",
-      "options": {
-        "port": 4200
-      },
-      "configurations": {
-        "production": {
-          "buildTarget": "movies:build:production"
+        "lint": {
+            "executor": "@nx/eslint:lint"
         },
-        "development": {
-          "buildTarget": "movies:build:development"
+        "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "movies:build",
+                "port": 4200,
+                "staticFilePath": "dist/apps/movies/browser",
+                "spa": true
+            }
         }
-      },
-      "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular/build:extract-i18n",
-      "options": {
-        "buildTarget": "movies:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "serve-static": {
-      "continuous": true,
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "movies:build",
-        "port": 4200,
-        "staticFilePath": "dist/apps/movies/browser",
-        "spa": true
-      }
     }
-  }
 }
