@@ -36,7 +36,7 @@
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 0;
-    color:white;
+    color: white;
 }
 
 .subtitle {
@@ -65,11 +65,30 @@
     line-height: 1.5;
 }
 
-.start-btn {
-    background-color: #e50914;
-    border: none;
-    font-weight: bold;
+.footer {
     display: flex;
-    align-items: center;
-    gap: 6px;
+    gap: 10px;
+
+    .start-btn {
+        background-color: #e50914;
+        border: none;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .close {
+        background-color: #747474;
+        border: none;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: white;
+
+        &:hover {
+            background-color: #333;
+        }
+    }
 }
