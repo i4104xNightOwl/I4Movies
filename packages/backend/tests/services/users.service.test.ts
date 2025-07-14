@@ -1,6 +1,6 @@
-import UsersService from '@src/services/mongodb/users.services';
-import Database from '../../utils/database';
 import { IUsers } from '@movies/interfaces';
+import { UsersService } from '@src/services/mongodb/users.services';
+import { Database } from 'utils/database';
 
 let defaultUser: IUsers = {
     username: 'khoa',
