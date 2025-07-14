@@ -1,20 +1,48 @@
-import { ICategoriesService } from '@interface/services/categories.services';
+// services/mongodb/categories.services.ts
 import { ICategories } from '@movies/interfaces';
+import { ICategoriesService } from '@interface/services/categories.services';
+import { Categories } from '@src/models/categories.models';
+import { plainToInstance, instanceToPlain } from 'class-transformer';
+import { CategoriesDB } from './migrations/categories.schema';
+
+function transformCategory(doc: any): ICategories {
+    const plain = doc.toObject();
+    plain.id = plain._id.toString();
+    delete plain._id;
+    delete plain.__v;
+    return plainToInstance(Categories, plain);
+}
 
 export class CategoriesService implements ICategoriesService {
-    get(id: string | number): Promise<ICategories> {
-        throw new Error('Method not implemented.');
+    async get(id: string | number): Promise<ICategories> {
+        const category = await CategoriesDB.findById(id).orFail();
+        return transformCategory(category);
     }
-    getAll(): Promise<ICategories> {
-        throw new Error('Method not implemented.');
+
+    async getAll(): Promise<ICategories[]> {
+        const categories = await CategoriesDB.find();
+        return categories.map(transformCategory);
     }
-    create(data: ICategories): Promise<ICategories> {
-        throw new Error('Method not implemented.');
+
+    async create(data: ICategories): Promise<ICategories> {
+        const created = new CategoriesDB(data);
+        const saved = await created.save();
+        return transformCategory(saved);
     }
-    update(data: ICategories): Promise<ICategories> {
-        throw new Error('Method not implemented.');
+
+    async update(data: ICategories): Promise<ICategories> {
+        const plainData = instanceToPlain(data);
+        const updated = await CategoriesDB.findByIdAndUpdate(
+            data.id,
+            plainData,
+            { new: true, runValidators: true }
+        ).orFail();
+
+        return transformCategory(updated);
     }
-    delete(data: ICategories): Promise<boolean> {
-        throw new Error('Method not implemented.');
+
+    async delete(data: ICategories): Promise<boolean> {
+        const deleted = await CategoriesDB.findByIdAndDelete(data.id);
+        return !!deleted;
     }
 }
