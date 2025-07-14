@@ -1,20 +1,81 @@
-import { IMoviesService } from '@interface/services/movies.services';
-import { IMovies } from '@movies/interfaces';
+import { IMovies, ICategories } from '@movies/interfaces';
+import { Movies } from '@src/models/movies.models';
+import { plainToInstance, instanceToPlain } from 'class-transformer';
+import { CategoriesDB } from './migrations/categories.schema';
+import { MoviesDB } from './migrations/movies.schema';
 
-export class MoviesService implements IMoviesService {
-    get(id: string | number): Promise<IMovies> {
-        throw new Error('Method not implemented.');
+async function populateCategories(categoryIds: string[]): Promise<ICategories[]> {
+    const categories = await CategoriesDB
+        .find({ _id: { $in: categoryIds } })
+        .lean<{ _id: string; __v?: number; name: string; slug: string }[]>();
+
+    const result: ICategories[] = categories.map(category => {
+        const transformed: ICategories = {
+            id: category._id.toString(),
+            name: category.name,
+            slug: category.slug,
+        };
+        return transformed;
+    });
+
+    return result;
+}
+
+function transformMovie(doc: any, populatedCategories?: ICategories[]): IMovies {
+    const plain = doc.toObject({ virtuals: false });
+    plain.id = plain._id.toString();
+    plain.category = populatedCategories || plain.category;
+    delete plain._id;
+    delete plain.__v;
+
+    return plainToInstance(Movies, plain);
+}
+
+export class MoviesService {
+    async get(id: string | number): Promise<IMovies> {
+        const movie = await MoviesDB.findById(id).orFail();
+        const categories = await populateCategories(movie.category);
+        return transformMovie(movie, categories);
     }
-    getAll(): Promise<IMovies> {
-        throw new Error('Method not implemented.');
+
+    async getAll(): Promise<IMovies[]> {
+        const movies = await MoviesDB.find();
+
+        const allMovies: IMovies[] = [];
+
+        for (const movie of movies) {
+            const categories = await populateCategories(movie.category);
+            allMovies.push(transformMovie(movie, categories));
+        }
+
+        return allMovies;
     }
-    create(data: IMovies): Promise<IMovies> {
-        throw new Error('Method not implemented.');
+
+    async create(data: IMovies): Promise<IMovies> {
+        const categoryIds = data.category.map(c => c.id?.toString());
+        const created = new MoviesDB({ ...data, category: categoryIds });
+        const saved = await created.save();
+
+        const categories = await populateCategories(categoryIds);
+        return transformMovie(saved, categories);
     }
-    update(data: IMovies): Promise<IMovies> {
-        throw new Error('Method not implemented.');
+
+    async update(data: IMovies): Promise<IMovies> {
+        const categoryIds = data.category.map(c => c.id?.toString());
+        const plainData = { ...instanceToPlain(data), category: categoryIds };
+
+        const updated = await MoviesDB.findByIdAndUpdate(
+            data.id,
+            plainData,
+            { new: true, runValidators: true }
+        ).orFail();
+
+        const categories = await populateCategories(categoryIds);
+        return transformMovie(updated, categories);
     }
-    delete(data: IMovies): Promise<boolean> {
-        throw new Error('Method not implemented.');
+
+    async delete(data: IMovies): Promise<boolean> {
+        const deleted = await MoviesDB.findByIdAndDelete(data.id);
+        return !!deleted;
     }
 }

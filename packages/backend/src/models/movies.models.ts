@@ -80,6 +80,6 @@ export class MoviesBuilder {
         return this;
     }
 
-    create(): MoviesBuilder { return new MoviesBuilder(); }
+    static create(): MoviesBuilder { return new MoviesBuilder(); }
     build(): IMovies { return this.movies; }
 }
