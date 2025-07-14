@@ -4,38 +4,11 @@ import { plainToInstance, instanceToPlain } from 'class-transformer';
 import { CategoriesDB } from './migrations/categories.schema';
 import { MoviesDB } from './migrations/movies.schema';
 
-async function populateCategories(categoryIds: string[]): Promise<ICategories[]> {
-    const categories = await CategoriesDB
-        .find({ _id: { $in: categoryIds } })
-        .lean<{ _id: string; __v?: number; name: string; slug: string }[]>();
-
-    const result: ICategories[] = categories.map(category => {
-        const transformed: ICategories = {
-            id: category._id.toString(),
-            name: category.name,
-            slug: category.slug,
-        };
-        return transformed;
-    });
-
-    return result;
-}
-
-function transformMovie(doc: any, populatedCategories?: ICategories[]): IMovies {
-    const plain = doc.toObject({ virtuals: false });
-    plain.id = plain._id.toString();
-    plain.category = populatedCategories || plain.category;
-    delete plain._id;
-    delete plain.__v;
-
-    return plainToInstance(Movies, plain);
-}
-
 export class MoviesService {
     async get(id: string | number): Promise<IMovies> {
         const movie = await MoviesDB.findById(id).orFail();
-        const categories = await populateCategories(movie.category);
-        return transformMovie(movie, categories);
+        const categories = await this.populateCategories(movie.category);
+        return this.transformMovie(movie, categories);
     }
 
     async getAll(): Promise<IMovies[]> {
@@ -44,8 +17,8 @@ export class MoviesService {
         const allMovies: IMovies[] = [];
 
         for (const movie of movies) {
-            const categories = await populateCategories(movie.category);
-            allMovies.push(transformMovie(movie, categories));
+            const categories = await this.populateCategories(movie.category);
+            allMovies.push(this.transformMovie(movie, categories));
         }
 
         return allMovies;
@@ -56,8 +29,8 @@ export class MoviesService {
         const created = new MoviesDB({ ...data, category: categoryIds });
         const saved = await created.save();
 
-        const categories = await populateCategories(categoryIds);
-        return transformMovie(saved, categories);
+        const categories = await this.populateCategories(categoryIds);
+        return this.transformMovie(saved, categories);
     }
 
     async update(data: IMovies): Promise<IMovies> {
@@ -70,12 +43,39 @@ export class MoviesService {
             { new: true, runValidators: true }
         ).orFail();
 
-        const categories = await populateCategories(categoryIds);
-        return transformMovie(updated, categories);
+        const categories = await this.populateCategories(categoryIds);
+        return this.transformMovie(updated, categories);
     }
 
     async delete(data: IMovies): Promise<boolean> {
         const deleted = await MoviesDB.findByIdAndDelete(data.id);
         return !!deleted;
+    }
+
+    private async populateCategories(categoryIds: string[]): Promise<ICategories[]> {
+        const categories = await CategoriesDB
+            .find({ _id: { $in: categoryIds } })
+            .lean<{ _id: string; __v?: number; name: string; slug: string }[]>();
+
+        const result: ICategories[] = categories.map(category => {
+            const transformed: ICategories = {
+                id: category._id.toString(),
+                name: category.name,
+                slug: category.slug,
+            };
+            return transformed;
+        });
+
+        return result;
+    }
+
+    private transformMovie(doc: any, populatedCategories?: ICategories[]): IMovies {
+        const plain = doc.toObject({ virtuals: false });
+        plain.id = plain._id.toString();
+        plain.category = populatedCategories || plain.category;
+        delete plain._id;
+        delete plain.__v;
+
+        return plainToInstance(Movies, plain);
     }
 }
