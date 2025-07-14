@@ -1,7 +1,7 @@
 import { IMoviesService } from '@interface/services/movies.services';
 import { IMovies } from '@movies/interfaces';
 
-export default class MoviesService implements IMoviesService {
+export class MoviesService implements IMoviesService {
     get(id: string): Promise<IMovies> {
         throw new Error('Method not implemented.');
     }

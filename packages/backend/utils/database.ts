@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export default class Database {
+export class Database {
     private static instance: Database | undefined;
 
     private constructor() { }

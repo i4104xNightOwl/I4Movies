@@ -1,6 +1,6 @@
-import { ICategories, IMovies } from '@movies/interfaces';
-import Database from '../../utils/database';
-import MoviesService from '@src/services/mongodb/movies.services';
+import { ICategories, IMovies } from "@movies/interfaces";
+import { MoviesService } from "@src/services/mongodb/movies.services";
+import { Database } from "utils/database";
 
 let defaultCategories: ICategories = {
     name: 'Action',

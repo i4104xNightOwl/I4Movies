@@ -1,7 +1,7 @@
 import { ICategoriesService } from '@interface/services/categories.services';
 import { ICategories } from '@movies/interfaces';
 
-export default class CategoriesService implements ICategoriesService {
+export class CategoriesService implements ICategoriesService {
     get(id: string): Promise<ICategories> {
         throw new Error('Method not implemented.');
     }
