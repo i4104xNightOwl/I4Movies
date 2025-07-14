@@ -32,6 +32,9 @@
             "@interface/*": [
                 "interface/*"
             ],
+            "@utils/*": [
+                "utils/*"
+            ]
         }
     },
     "exclude": [

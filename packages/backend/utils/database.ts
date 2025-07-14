@@ -30,4 +30,20 @@ export class Database {
             console.log('🛑 Database disconnected');
         }
     }
+
+    public static async dropDatabase() {
+        if (Database.instance) {
+            const collections = mongoose.connection.collections;
+
+            for (const key in collections) {
+                const collection = collections[key];
+                try {
+                    await collection.deleteMany({});
+                } catch (err) {
+                    console.error(`❌ Failed to clear collection ${key}:`, err);
+                }
+            }
+            console.log('🛑 Database dropped');
+        }
+    }
 }
