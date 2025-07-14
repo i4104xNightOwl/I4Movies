@@ -13,7 +13,7 @@ const CategoriesSchema = new Schema<CategoriesDocument>({
         required: true,
     },
 }, {
-    timestamps: true,
+    timestamps: false,
 });
 
 export const CategoriesDB = model<CategoriesDocument>("Categories", CategoriesSchema);

@@ -1,7 +1,9 @@
 import { IMovies } from "@movies/interfaces";
 import { Document, model, Schema } from "mongoose";
 
-type MoviesDocument = IMovies & Document;
+type MoviesDocument = Omit<IMovies, 'category'> & {
+    category: string[];
+} & Document;
 
 const MovieSchema = new Schema<MoviesDocument>({
     name: {
