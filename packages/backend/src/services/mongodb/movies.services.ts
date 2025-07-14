@@ -2,7 +2,7 @@ import { IMoviesService } from '@interface/services/movies.services';
 import { IMovies } from '@movies/interfaces';
 
 export class MoviesService implements IMoviesService {
-    get(id: string): Promise<IMovies> {
+    get(id: string | number): Promise<IMovies> {
         throw new Error('Method not implemented.');
     }
     getAll(): Promise<IMovies> {

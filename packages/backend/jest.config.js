@@ -9,6 +9,7 @@ module.exports = {
     moduleNameMapper: {
         "^@src/(.*)$": "<rootDir>/src/$1",
         "^@interface/(.*)$": "<rootDir>/interface/$1",
+        "^@utils/(.*)$": "<rootDir>/utils/$1",
     },
     moduleFileExtensions: ['ts', 'js', 'json', 'node'],
     collectCoverage: true,

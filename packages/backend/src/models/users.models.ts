@@ -32,6 +32,6 @@ export class UsersBuilder {
         return this;
     }
 
-    create(): UsersBuilder { return new UsersBuilder(); }
+    static create(): UsersBuilder { return new UsersBuilder(); }
     build(): IUsers { return this.users; }
 }

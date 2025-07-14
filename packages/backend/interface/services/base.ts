@@ -3,12 +3,12 @@ export abstract class BaseService<T> {
     /**
      * Lấy dữ liệu theo id
      */
-    abstract get(id: string): Promise<T>;
+    abstract get(id: string | number): Promise<T>;
 
     /**
      * Lấy toàn bộ dữ liệu
      */
-    abstract getAll(): Promise<T>;
+    abstract getAll(): Promise<T[]>;
 
     /**
      *
