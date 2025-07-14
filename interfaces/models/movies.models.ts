@@ -1,7 +1,7 @@
 import { ICategories } from "./categories.models";
 
 export interface IMovies {
-    id: number;
+    id: string | number;
     name: string;
     slug: string;
     originName: string;

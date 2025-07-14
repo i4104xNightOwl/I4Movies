@@ -1,6 +1,6 @@
 
 export interface IUsers {
-    id: number;
+    id: string | number;
     username: string;
     password: string;
     email: string;

@@ -1,6 +1,6 @@
 
 export interface ICategories {
-    id: number;
+    id: string | number;
     name: string;
     slug: string;
 }
