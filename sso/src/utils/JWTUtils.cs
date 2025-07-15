@@ -10,17 +10,19 @@ namespace SsoServer.Utils
 {
     public class JWTUtils
     {
-        private readonly string _privateKeyPath = "../resources/private_key.pem";
         private readonly string _issuer = "sso-server";
         private readonly string _audience = "i4movies";
 
+        public string CreateRefreshToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+        }
+
         public string CreateToken(Users user)
         {
-            if (!File.Exists(_privateKeyPath))
-                throw new FileNotFoundException("Private key file not found");
-
-            using var key = ECDsa.Create();
-            key.ImportFromPem(File.ReadAllText(_privateKeyPath));
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "resources", "private_key.pem");
+            var key = ECDsa.Create();
+            key.ImportFromPem(File.ReadAllText(path));
 
             var claims = new[]
             {
@@ -40,21 +42,6 @@ namespace SsoServer.Utils
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public string RefreshToken(string oldToken)
-        {
-            var handler = new JwtSecurityTokenHandler();
-            var jwtToken = handler.ReadJwtToken(oldToken);
-
-            var user = new Users
-            {
-                Username = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value ?? "",
-                Role = jwtToken.Claims.FirstOrDefault(c => c.Type == "role")?.Value ?? "user",
-                Email = jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value ?? "",
-            };
-
-            return CreateToken(user);
         }
 
         public bool RevokeToken()

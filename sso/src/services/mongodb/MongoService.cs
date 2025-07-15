@@ -1,45 +1,43 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
-using SsoServer.Models;
 
 namespace SsoServer.Database
 {
-    public class MongoService
+    public abstract class MongoService<T>
     {
-        private readonly IMongoCollection<Users> _users;
+        protected IMongoCollection<T> Collection { get; private set; }
 
-        public MongoService()
+        protected MongoService(string collectionName, string connectionString = "mongodb://localhost:27017", string databaseName = "movies")
         {
-            var connectionString = "mongodb://localhost:27017";
             var client = new MongoClient(connectionString);
-            var database = client.GetDatabase("movies");
-
-            _users = database.GetCollection<Users>("users");
+            var database = client.GetDatabase(databaseName);
+            Collection = database.GetCollection<T>(collectionName);
         }
 
-        public async Task Add(Users newUser)
+        public async Task AddAsync(T item)
         {
-            await _users.InsertOneAsync(newUser);
+            await Collection.InsertOneAsync(item);
         }
 
-        public async Task<Users?> GetByUsername(string username)
+        public async Task<List<T>> GetAllAsync()
         {
-            return await _users.Find(u => u.Username == username).FirstOrDefaultAsync();
+            return await Collection.Find(_ => true).ToListAsync();
         }
 
-        public async Task<List<Users>> GetAll()
+        public async Task<T?> GetById(ObjectId id)
         {
-            return await _users.Find(_ => true).ToListAsync();
+            var filter = Builders<T>.Filter.Eq("_id", id);
+            return await GetOneAsync(filter);
         }
 
-        public async Task Update(ObjectId id, Users updatedUser)
+        public async Task<T?> GetOneAsync(FilterDefinition<T> filter)
         {
-            await _users.ReplaceOneAsync(u => u.Id == id, updatedUser);
+            return await Collection.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task Delete(ObjectId id)
+        public async Task ReplaceOneAsync(FilterDefinition<T> filter, T replacement)
         {
-            await _users.DeleteOneAsync(u => u.Id == id);
+            await Collection.ReplaceOneAsync(filter, replacement);
         }
     }
 }
