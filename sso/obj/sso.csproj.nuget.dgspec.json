@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/i4104/Documents/Src/Typescript/I4Movies/sso/sso/sso.csproj": {}
+    "/home/i4104/Documents/Src/Typescript/I4Movies/sso/sso.csproj": {}
   },
   "projects": {
-    "/home/i4104/Documents/Src/Typescript/I4Movies/sso/sso/sso.csproj": {
+    "/home/i4104/Documents/Src/Typescript/I4Movies/sso/sso.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/i4104/Documents/Src/Typescript/I4Movies/sso/sso/sso.csproj",
+        "projectUniqueName": "/home/i4104/Documents/Src/Typescript/I4Movies/sso/sso.csproj",
         "projectName": "sso",
-        "projectPath": "/home/i4104/Documents/Src/Typescript/I4Movies/sso/sso/sso.csproj",
+        "projectPath": "/home/i4104/Documents/Src/Typescript/I4Movies/sso/sso.csproj",
         "packagesPath": "/home/i4104/.nuget/packages/",
-        "outputPath": "/home/i4104/Documents/Src/Typescript/I4Movies/sso/sso/obj/",
+        "outputPath": "/home/i4104/Documents/Src/Typescript/I4Movies/sso/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/i4104/.nuget/NuGet/NuGet.Config"
@@ -44,9 +44,29 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.5, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.12.1, )"
             }
           },
           "imports": [
