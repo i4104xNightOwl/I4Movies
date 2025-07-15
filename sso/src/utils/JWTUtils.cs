@@ -59,8 +59,6 @@ namespace SsoServer.Utils
 
         public bool RevokeToken()
         {
-            // ⚠️ JWT không thể thu hồi trừ khi bạn giữ blacklist hoặc token store
-            // Ở đây giả lập là luôn thành công
             return true;
         }
     }
