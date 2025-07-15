@@ -1,5 +1,8 @@
-version: '3'
+version: '3.8'
+
 services:
+  ####################################
+  # MongoDB
   mongo:
     image: mongo:latest
     container_name: mongo
@@ -9,13 +12,25 @@ services:
     volumes:
       - ./storage/database:/data/db
 
-  mongoku:
-    image: huggingface/mongoku
-    container_name: mongoku
-    restart: unless-stopped
+  ####################################
+  # Open Policy Agent
+  opa:
+    image: openpolicyagent/opa:latest
+    container_name: opa
+    command: ["run", "--server", "--addr", "0.0.0.0:8181", "/policies"]
+    volumes:
+      - ./storage/opa:/policies
     ports:
-      - "3100:3100"
-    environment:
-      - MONGOKU_DEFAULT_CONNECTION_HOST=mongodb://mongo:27017
-    depends_on:
-      - mongo
+      - "8181:8181"
+    restart: unless-stopped 
+
+  ####################################
+  # SSO Server
+  sso-server:
+    build:
+      context: ./sso
+      dockerfile: Dockerfile
+    container_name: sso-server
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
