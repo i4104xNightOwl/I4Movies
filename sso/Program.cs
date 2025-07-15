@@ -1,14 +1,28 @@
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SSO API", Version = "v1" });
+});
 
 var app = builder.Build();
 
-app.UseRouting();
+if (app.Environment.IsDevelopment() || true)
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "SSO API V1");
+    });
+}
+
+app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-Console.WriteLine("Running...");
 app.Run();
