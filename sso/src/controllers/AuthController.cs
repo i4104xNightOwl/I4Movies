@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SsoServer.Database;
 using SsoServer.Models;
 using SsoServer.Requests;
 using SsoServer.Services;
@@ -9,8 +7,8 @@ using SsoServer.Utils;
 namespace SsoServer.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+[Route("/auth")]
+public class AuthController : Controller
 {
     private readonly UserService _userService;
     private readonly TokenService _tokenService;
@@ -23,20 +21,36 @@ public class AuthController : ControllerBase
         _jwtUtils = new JWTUtils();
     }
 
+    [HttpGet("login")]
+    public IActionResult Index(string returnUrl = "/")
+    {
+        ViewData["ReturnUrl"] = returnUrl;
+        return View("Login");
+    }
+
+
+    [HttpGet("register")]
+    public IActionResult Register(string returnUrl = "/")
+    {
+        ViewData["ReturnUrl"] = returnUrl;
+        return View("Register");
+    }
+
+
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         var user = await _userService.GetByUsername(request.Username);
         if (user == null)
-            return Unauthorized(new { message = "User not found" });
+            return Unauthorized(new { message = "Người dùng không tồn tại" });
 
         var isValid = BCrypt.Net.BCrypt.Verify(request.Password, user.Password);
         if (!isValid)
-            return Unauthorized(new { message = "Invalid password" });
+            return Unauthorized(new { message = "Mật khẩu không chính xác" });
 
         var accessToken = _jwtUtils.CreateToken(user);
         var refreshToken = _jwtUtils.CreateRefreshToken();
-        
+
         var newToken = new Token
         {
             UserId = user.Id,
@@ -48,10 +62,27 @@ public class AuthController : ControllerBase
 
         await _tokenService.AddAsync(newToken);
 
+        // Lưu token vào cookie
+        Response.Cookies.Append("accessToken", accessToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            Expires = DateTime.UtcNow.AddMinutes(60),
+            SameSite = SameSiteMode.Strict
+        });
+
+        Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            Expires = DateTime.UtcNow.AddDays(7),
+            SameSite = SameSiteMode.Strict
+        });
+
         return Ok(new
         {
-            accessToken,
-            refreshToken
+            error = 0,
+            action = "login",
         });
     }
 
@@ -60,11 +91,11 @@ public class AuthController : ControllerBase
     {
         var existingUser = await _userService.GetByUsername(request.Username);
         if (existingUser != null)
-            return Conflict(new { message = "Username already exists" });
+            return Conflict(new { message = "Người dùng này đã tồn tại" });
 
         var existingEmail = await _userService.GetByEmail(request.Email);
         if (existingEmail != null)
-            return Conflict(new { message = "Email already used" });
+            return Conflict(new { message = "Email này đã được sử dụng" });
 
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
@@ -88,55 +119,30 @@ public class AuthController : ControllerBase
             RefreshTokenExpiresAt = DateTime.UtcNow.AddDays(7)
         };
 
-        await _tokenService.AddAsync(newToken);
         await _userService.AddAsync(newUser);
+        await _tokenService.AddAsync(newToken);
+
+        // Lưu token vào cookie
+        Response.Cookies.Append("accessToken", accessToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            Expires = DateTime.UtcNow.AddMinutes(60),
+            SameSite = SameSiteMode.Strict
+        });
+
+        Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            Expires = DateTime.UtcNow.AddDays(7),
+            SameSite = SameSiteMode.Strict
+        });
 
         return Ok(new
         {
-            accessToken,
-            refreshToken
+            error = 0,
+            action = "register",
         });
     }
-
-    [HttpPost("refresh-token")]
-    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
-    {
-        if (string.IsNullOrEmpty(request.RefreshToken))
-            return BadRequest(new { message = "Missing refresh token" });
-
-        var token = await _tokenService.GetByRefreshTokenAsync(request.RefreshToken);
-        if (token == null)
-            return Unauthorized(new { message = "Invalid or revoked token" });
-
-        if (_tokenService.IsRefreshTokenExpired(token))
-            return Unauthorized(new { message = "Refresh token expired" });
-
-        var user = await _userService.GetById(token.UserId);
-        if (user == null)
-            return Unauthorized(new { message = "User not found" });
-
-        await _tokenService.RevokeByRefreshTokenAsync(request.RefreshToken);
-
-        var accessToken = _jwtUtils.CreateToken(user);
-        var refreshToken = _jwtUtils.CreateRefreshToken();
-        var now = DateTime.UtcNow;
-
-        var newToken = new Token
-        {
-            UserId = token.UserId,
-            AccessToken = accessToken,
-            RefreshToken = refreshToken,
-            AccessTokenExpiresAt = now.AddMinutes(60),
-            RefreshTokenExpiresAt = now.AddDays(7)
-        };
-
-        await _tokenService.SaveAsync(newToken);
-
-        return Ok(new
-        {
-            accessToken,
-            refreshToken
-        });
-    }
-
 }

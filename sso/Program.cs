@@ -2,7 +2,11 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews()
+    .AddRazorOptions(options =>
+    {
+        options.ViewLocationFormats.Add("/src/views/{1}/{0}.cshtml");
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -20,9 +24,11 @@ if (app.Environment.IsDevelopment() || true)
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "SSO API V1");
     });
 }
-
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+app.MapControllerRoute(name: "default", pattern: "{controller=Auth}/{action=Index}");
 
 app.Run();
