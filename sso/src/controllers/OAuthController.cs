@@ -77,7 +77,7 @@ public class OAuthController : ControllerBase
 
         var accessToken = _jwtUtils.CreateToken(user);
         var refreshToken = Guid.NewGuid().ToString("N");
-        // Đọc dữ liệu từ database thay vì dùng hasrd code như này
+        // Đọc dữ liệu từ database thay vì dùng hard code như này
 
         return Ok(new
         {

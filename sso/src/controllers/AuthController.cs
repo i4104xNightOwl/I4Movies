@@ -28,14 +28,12 @@ public class AuthController : Controller
         return View("Login");
     }
 
-
     [HttpGet("register")]
     public IActionResult Register(string returnUrl = "/")
     {
         ViewData["ReturnUrl"] = returnUrl;
         return View("Register");
     }
-
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
