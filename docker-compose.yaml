@@ -22,7 +22,7 @@ services:
       - ./storage/opa:/policies
     ports:
       - "8181:8181"
-    restart: unless-stopped 
+    restart: unless-stopped
 
   ####################################
   # SSO Server
