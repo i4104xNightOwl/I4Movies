@@ -1,4 +1,4 @@
-import { ICategories, IMovies } from "@movies/interfaces";
+import { ICategories, IEpisodes, IMovies } from "@movies/interfaces";
 
 export class Movies implements IMovies {
     id: string | number;
@@ -10,8 +10,9 @@ export class Movies implements IMovies {
     category: ICategories[];
     posterUrl: string;
     thumbUrl: string;
-    episodeCurrent: number;
-    episodeTotal: number;
+    episodes: IEpisodes[];
+    episodeCurrent: string;
+    episodeTotal: string;
     quality: string;
     createdTime: string;
 }
@@ -60,12 +61,17 @@ export class MoviesBuilder {
         return this;
     }
 
-    setEpisodeCurrent(episodeCurrent: number): MoviesBuilder {
+    setEpisodes(episodes: IEpisodes[]): MoviesBuilder {
+        this.movies.episodes = episodes;
+        return this;
+    }
+
+    setEpisodeCurrent(episodeCurrent: string): MoviesBuilder {
         this.movies.episodeCurrent = episodeCurrent;
         return this;
     }
 
-    setEpisodeTotal(episodeTotal: number): MoviesBuilder {
+    setEpisodeTotal(episodeTotal: string): MoviesBuilder {
         this.movies.episodeTotal = episodeTotal;
         return this;
     }
