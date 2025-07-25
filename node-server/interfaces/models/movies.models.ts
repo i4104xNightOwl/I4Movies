@@ -1,5 +1,10 @@
 import { ICategories } from "./categories.models";
 
+export interface IEpisodes {
+    name: string;
+    m3u8: string;
+}
+
 export interface IMovies {
     id: string | number;
     name: string;
@@ -10,8 +15,9 @@ export interface IMovies {
     category: ICategories[];
     posterUrl: string;
     thumbUrl: string;
-    episodeTotal: number;
-    episodeCurrent: number;
+    episodes: IEpisodes[];
+    episodeTotal: string;
+    episodeCurrent: string;
     quality: string;
     createdTime: string;
 }

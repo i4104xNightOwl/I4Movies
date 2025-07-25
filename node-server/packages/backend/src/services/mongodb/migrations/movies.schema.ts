@@ -3,6 +3,7 @@ import { Document, model, Schema } from "mongoose";
 
 type MoviesDocument = Omit<IMovies, 'category'> & {
     category: string[];
+    episodes: any[];
 } & Document;
 
 const MovieSchema = new Schema<MoviesDocument>({
@@ -38,12 +39,16 @@ const MovieSchema = new Schema<MoviesDocument>({
         type: String,
         required: true,
     },
+    episodes: {
+        type: [],
+        required: true,
+    },
     episodeTotal: {
-        type: Number,
+        type: String,
         required: true,
     },
     episodeCurrent: {
-        type: Number,
+        type: String,
         required: true,
     },
     quality: {
