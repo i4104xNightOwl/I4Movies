@@ -57,8 +57,9 @@ I4Movies/
 ---
 
 ## 🧪 Cài đặt & Chạy
+> ⚠️ Yêu cầu cài đặt: Docker, Node.js, .NET SDK, Angular CLI, NX CLI
 
-### 1. Clone dự án & khởi tạo Docker
+### 1. Clone dự án & khởi tạo Server
 
 ```bash
 git clone https://github.com/i4104xNightOwl/I4Movies.git
@@ -97,8 +98,6 @@ nx serve movies --port=4200
 # Giao diện admin
 nx serve admin --port=4201
 ```
-
-> ⚠️ Yêu cầu cài đặt: Docker, Node.js, .NET SDK, Angular CLI, NX CLI
 
 ---
 
