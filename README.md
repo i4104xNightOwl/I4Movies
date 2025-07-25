@@ -40,11 +40,11 @@ I4Movies/
 ├── .vscode/               # Cài đặt cho VSCode
 ├── apps/
 │   ├── mobile/            # App Android (chưa hoàn thiện)
-│   ├── web/
-│   │   └── interfaces/    # Interface dùng chung của BE và FE
-│   └── packages/
-│       ├── backend/       # API Express + TypeScript
-│       └── frontend/      # Frontend Angular
+│   └── web/
+│       └── interfaces/    # Interface dùng chung của BE và FE
+│       └── packages/
+│           ├── backend/   # API Express + TypeScript
+│           └── frontend/   # Frontend Angular
 ├── opa/                   # Quy tắc OPA
 ├── sso/                   # Dịch vụ SSO (ASP.NET)
 ├── storage/               # Lưu file/media
