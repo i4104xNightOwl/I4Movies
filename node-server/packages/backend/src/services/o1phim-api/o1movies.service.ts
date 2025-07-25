@@ -1,5 +1,4 @@
 import { IMovies, IEpisodes, ICategories } from "@movies/interfaces";
-import { Movies } from "@src/models/movies.models";
 import axios from "axios";
 
 export class o1MoviesSerivce {

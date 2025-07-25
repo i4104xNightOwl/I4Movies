@@ -19,6 +19,7 @@
         "@movies/interfaces": "../../interfaces",
         "@types/body-parser": "^1.19.2",
         "@types/mongoose": "^5.11.97",
+        "axios": "^1.11.0",
         "body-parser": "^2.2.0",
         "class-transformer": "^0.5.1",
         "cors": "^2.8.5",
