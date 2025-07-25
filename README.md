@@ -111,18 +111,6 @@ yarn test
 
 ---
 
-## 🔐 Đăng nhập một lần (SSO)
-
-Hệ thống dùng SSO viết bằng ASP.NET Core giúp người dùng đăng nhập một lần truy cập nhiều hệ thống con.
-
----
-
-## ⚖️ Phân quyền linh hoạt (OPA)
-
-Phân quyền dựa theo các chính sách được định nghĩa trong OPA, dễ bổ sung, thay đổi linh hoạt.
-
----
-
 ## 💌 Góp ý & Liên hệ
 
 Dự án mang tính học tập. Rất hoan nghên bạn đóng góp hoặc thảo luận.
