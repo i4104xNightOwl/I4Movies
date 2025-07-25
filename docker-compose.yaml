@@ -11,6 +11,8 @@ services:
       - "27017:27017"
     volumes:
       - ./storage/database:/data/db
+    networks:
+      - i4movies-net
 
   ####################################
   # Open Policy Agent
@@ -23,9 +25,11 @@ services:
     ports:
       - "8181:8181"
     restart: unless-stopped
+    networks:
+      - i4movies-net
 
   ####################################
-  # SSO Server
+  # SSO Server (.NET)
   sso-server:
     build:
       context: ./sso
@@ -34,3 +38,12 @@ services:
     ports:
       - "5000:5000"
     restart: unless-stopped
+    depends_on:
+      - mongo
+      - opa
+    networks:
+      - i4movies-net
+
+networks:
+  i4movies-net:
+    driver: bridge

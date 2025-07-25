@@ -1,7 +1,7 @@
 #!bin/bash
 mkdir keys
-mkdir node-server/packages/backend/resources
-mkdir node-server/packages/frontend/resources
+mkdir apps/web/packages/backend/resources
+mkdir apps/web/packages/frontend/resources
 
 cd keys
 
@@ -12,5 +12,5 @@ openssl ec -in private_key.pem -pubout -out public_key.pem
 cp private_key.pem ../sso/resources/
 
 # Copy key vào sso client và backend
-cp public_key.pem ../node-server/packages/backend/resources/
-cp public_key.pem ../node-server/packages/frontend/resources/
+cp public_key.pem ../apps/web/packages/backend/resources/
+cp public_key.pem ../apps/web/packages/frontend/resources/
